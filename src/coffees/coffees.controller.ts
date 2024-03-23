@@ -1,10 +1,10 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
-  HttpCode,
-  HttpStatus,
   Param,
+  Patch,
   Post,
   Res,
 } from '@nestjs/common';
@@ -14,14 +14,9 @@ import {
 export class CoffeesController {
   // Handles GET requests to '/coffees', returning all coffees
   @Get()
-  // Below is an example of using express response object to send a response
-  // But It is recommended to use the NestJS standard approach when dealing with responses whenever possible, because it provides a more consistent and predictable behavior across the application.
-  findAll(@Res() response) {
-    response.status(200).send('This action returns all coffees');
+  findAll() {
+    return 'This action returns all coffees';
   }
-  // findAll() {
-  //   return 'This action returns all coffees';
-  // }
 
   // Handles GET requests to '/coffees/:id', fetching a specific coffee by its id
   @Get(':id')
@@ -29,9 +24,21 @@ export class CoffeesController {
     return `This action returns #${id} coffee`;
   }
 
+  // Handles POST requests to '/coffees', creating a new coffee
   @Post()
-  @HttpCode(HttpStatus.GONE)
   create(@Body() body) {
     return body;
+  }
+
+  // Handles PATCH requests to '/coffees/:id', updating a specific coffee by its id
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() body) {
+    return `This action updates #${id} coffee`;
+  }
+
+  // Handles DELETE requests to '/coffees/:id', removing a specific coffee by its id
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return `This action removes #${id} coffee`;
   }
 }
