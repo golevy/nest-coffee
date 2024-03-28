@@ -9,6 +9,7 @@ async function bootstrap() {
     new ValidationPipe({
       whitelist: true, // means that all incoming requests will be stripped of any properties that do not have any decorators
       forbidNonWhitelisted: true, // means that if a request comes in with properties that do not have any decorators, the request will be rejected
+      transform: true, // means that all incoming request payloads will be transformed into instances of the DTO classes they are bound to
     }),
   );
   await app.listen(8080);

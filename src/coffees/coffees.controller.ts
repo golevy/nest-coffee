@@ -28,20 +28,22 @@ export class CoffeesController {
 
   // Handles GET requests to '/coffees/:id', fetching a specific coffee by its id
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.coffeesService.findOne(id);
+  findOne(@Param('id') id: number) {
+    console.log(typeof id); // method to check the type of the id parameter
+    return this.coffeesService.findOne('' + id); // the id parameter is converted to a string by concatenating it with an empty string
   }
 
   // Handles POST requests to '/coffees', creating a new coffee
   @Post()
-  create(@Body() CreateCoffeeDto: CreateCoffeeDto) {
-    return this.coffeesService.create(CreateCoffeeDto);
+  create(@Body() createCoffeeDto: CreateCoffeeDto) {
+    console.log(createCoffeeDto instanceof CreateCoffeeDto); // method to check if the object is an instance of the CreateCoffeeDto class
+    return this.coffeesService.create(createCoffeeDto);
   }
 
   // Handles PATCH requests to '/coffees/:id', updating a specific coffee by its id
   @Patch(':id')
-  update(@Param('id') id: string, @Body() UpdateCoffeeDto: UpdateCoffeeDto) {
-    return this.coffeesService.update(id, UpdateCoffeeDto);
+  update(@Param('id') id: string, @Body() updateCoffeeDto: UpdateCoffeeDto) {
+    return this.coffeesService.update(id, updateCoffeeDto);
   }
 
   // Handles DELETE requests to '/coffees/:id', removing a specific coffee by its id
