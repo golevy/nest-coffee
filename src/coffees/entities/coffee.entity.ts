@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Flavor } from './flavor.entity';
 
 @Entity() // SQL table === 'coffee'
 export class Coffee {
@@ -11,6 +18,7 @@ export class Coffee {
   @Column() // SQL column === 'brand'
   brand: string;
 
-  @Column('json', { nullable: true }) // SQL column === 'flavors'
+  @JoinTable() // 👈 Join the 'coffee' and 'flavor' tables
+  @ManyToMany((type) => Flavor, (flavor) => flavor.coffees) // 👈 Define the many-to-many relationship
   flavors: string[];
 }
