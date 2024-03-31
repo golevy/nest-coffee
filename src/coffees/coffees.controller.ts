@@ -30,7 +30,7 @@ export class CoffeesController {
   @Get(':id')
   findOne(@Param('id') id: number) {
     console.log(typeof id); // method to check the type of the id parameter
-    return this.coffeesService.findOne('' + id); // the id parameter is converted to a string by concatenating it with an empty string
+    return this.coffeesService.findOne(id); // the id parameter is converted to a string by concatenating it with an empty string
   }
 
   // Handles POST requests to '/coffees', creating a new coffee
@@ -42,13 +42,13 @@ export class CoffeesController {
 
   // Handles PATCH requests to '/coffees/:id', updating a specific coffee by its id
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCoffeeDto: UpdateCoffeeDto) {
+  update(@Param('id') id: number, @Body() updateCoffeeDto: UpdateCoffeeDto) {
     return this.coffeesService.update(id, updateCoffeeDto);
   }
 
   // Handles DELETE requests to '/coffees/:id', removing a specific coffee by its id
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.coffeesService.remove(id);
   }
 }
