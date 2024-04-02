@@ -13,11 +13,16 @@ export class CoffeesService {
   ) {}
 
   findAll(): Promise<Coffee[]> {
-    return this.coffeeRepository.find();
+    return this.coffeeRepository.find(
+      { relations: ['flavors'] }, // eager load the flavors relation
+    );
   }
 
   async findOne(id: number): Promise<Coffee | null> {
-    const coffee = this.coffeeRepository.findOneBy({ id });
+    const coffee = this.coffeeRepository.findOne({
+      where: { id },
+      relations: ['flavors'],
+    });
     if (!coffee) {
       throw new NotFoundException(`Coffee #${id} not found`);
     }
