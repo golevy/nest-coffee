@@ -18,6 +18,9 @@ export class Coffee {
   @Column() // SQL column === 'brand'
   brand: string;
 
+  @Column({ default: 0 }) // SQL column === 'recommendations'
+  recommendations: number;
+
   @JoinTable() // 👈 Join the 'coffee' and 'flavor' tables
   @ManyToMany((type) => Flavor, (flavor) => flavor.coffees, {
     cascade: true, // 👈 or optionally just insert or update ['insert']
