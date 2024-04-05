@@ -12,8 +12,11 @@ export class Coffee {
   @PrimaryGeneratedColumn() // SQL column === 'id'
   id: number;
 
-  @Column() // SQL column === 'name'
+  @Column()
   name: string;
+
+  @Column({ nullable: true })
+  description: string;
 
   @Column() // SQL column === 'brand'
   brand: string;
