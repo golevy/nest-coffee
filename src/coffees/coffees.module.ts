@@ -5,21 +5,18 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Coffee } from './entities/coffee.entity';
 import { Flavor } from './entities/flavor.entity';
 import { Event } from 'src/events/entities/event.entity';
-
-class MockCoffeeService {}
+import { COFFEE_BRANDS } from './coffees.constants';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Coffee, Flavor, Event])], // 👈 Adding Entities here to the imports
   controllers: [CoffeesController],
   providers: [
+    CoffeesService,
     {
-      provide: CoffeesService, // 👈 This is the token that can be used to inject the dependency
-      useValue: new MockCoffeeService(), // 👈 Here we provide a mock implementation for CoffeesService
-      // useValue allows us to provide a specific value as a service. In this case,
-      // instead of the actual CoffeesService, we're using a mock service.
-      // This is useful for testing, as it allows us to replace a real service
-      // with a mock implementation, ensuring our tests are not affected by the
-      // actual logic of the CoffeesService.
+      // Token to inject coffee brands array across the application
+      provide: COFFEE_BRANDS,
+      // Provides an array of coffee brand names for injection
+      useValue: ['buddy brew', 'nescafe'],
     },
   ],
   exports: [CoffeesService], // 👈 Making the provider available to other modules
