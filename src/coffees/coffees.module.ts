@@ -6,14 +6,7 @@ import { Coffee } from './entities/coffee.entity';
 import { Flavor } from './entities/flavor.entity';
 import { Event } from 'src/events/entities/event.entity';
 import { COFFEE_BRANDS } from './coffees.constants';
-
-@Injectable()
-export class CoffeeBrandsFactory {
-  create() {
-    /* ... do something ...  */
-    return ['buddy brew', 'nescafe'];
-  }
-}
+import { DataSource } from 'typeorm';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Coffee, Flavor, Event])], // 👈 Adding Entities here to the imports
@@ -23,9 +16,12 @@ export class CoffeeBrandsFactory {
     {
       // Token to inject coffee brands array across the application
       provide: COFFEE_BRANDS,
-      useFactory: (brandsFactory: CoffeeBrandsFactory) =>
-        brandsFactory.create(),
-      inject: [CoffeeBrandsFactory], // Dependencies that need to be injected first
+      useFactory: async (coffeeConnection: DataSource): Promise<string[]> => {
+        const coffeeBrands = await Promise.resolve(['buddy brew', 'nescafe']);
+        console.log('[!] Async factory');
+        return coffeeBrands;
+      },
+      inject: [DataSource],
     },
   ],
   exports: [CoffeesService], // 👈 Making the provider available to other modules
