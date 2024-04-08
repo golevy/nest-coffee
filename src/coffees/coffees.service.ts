@@ -9,7 +9,7 @@ import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { Event } from 'src/events/entities/event.entity';
 import { COFFEE_BRANDS } from './coffees.constants';
 
-@Injectable({ scope: Scope.TRANSIENT }) // 👈 Marks the service as Transient scope. A new instance of the service is created for each use, ensuring isolated, stateless behavior ideal for handling unique, per-request or per-operation tasks.
+@Injectable({ scope: Scope.REQUEST })
 export class CoffeesService {
   constructor(
     @InjectRepository(Coffee)
@@ -19,7 +19,6 @@ export class CoffeesService {
     private readonly dataSource: DataSource,
     @Inject(COFFEE_BRANDS) coffeeBrands: string[], // 👈 We inject the COFFEE_BRANDS token here
   ) {
-    console.log(coffeeBrands);
     console.log('CoffeesService instantiated');
   }
 
