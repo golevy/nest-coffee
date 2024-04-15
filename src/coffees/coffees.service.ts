@@ -5,8 +5,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
-import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
-import { Event } from 'src/events/entities/event.entity';
+import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
+import { Event } from '../events/entities/event.entity';
 import coffeesConfig from './config/coffees.config';
 import { ConfigType } from '@nestjs/config';
 
