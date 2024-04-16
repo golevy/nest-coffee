@@ -10,7 +10,6 @@ import { Event } from '../events/entities/event.entity';
 import coffeesConfig from './config/coffees.config';
 import { ConfigType } from '@nestjs/config';
 
-@Injectable({ scope: Scope.REQUEST })
 export class CoffeesService {
   constructor(
     @InjectRepository(Coffee)
